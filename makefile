@@ -1,12 +1,15 @@
 CC=g++
 CFLags=-c -Wall
+FILENAME=test
 
-all: test
+all: $(FILENAME)
 
-test: main.o
-	$(CC) main.o -o test
+build: main.o
+	$(CC) main.o -o $(FILENAME).out
+
+# add run with run *.out and clean *.o *.out
 
 main.o: main.cpp
 
 clean:
-	rm -rf *.o test
+	rm -rf *.o $(FILENAME).out

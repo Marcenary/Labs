@@ -22,39 +22,42 @@ public:
     }
     
     Vector(T1 **arr) { // конвертировать двумерную матрицу в вектор
-        
+        // int n=5, m=5;
+        // T1 *narray = new T1[n * m];
+        // int count = 0;
+        // for (int i = n-1; i >= 0; --i) {
+        //     for (int j = 0; j < m; ++j) {
+        //         narray[count] = array[i][j];
+        //         count++;
+        //     }
+        // }
+        // return narray;
     }
 
-    T1& operator[] (const int id) const {
-        return this->arr[id];
+    T1& operator[] (const int id) const { return this->arr[id]; }
+    void operator ++() { // pre ++a
+        for (int i = 0; i < this->length; ++i)
+            ++this->arr[i];
+    }
+    void operator --() {
+        for (int i = 0; i < this->length; ++i)
+            --this->arr[i];
+    }
+    void operator ++(T1 obj) { // post a++
+        for (int i = 0; i < this->length; ++i)
+            ++this->arr[i];
+    }
+    void operator --(T1 obj) {
+        for (int i = 0; i < this->length; ++i)
+            --this->arr[i];
     }
 
-    void show() {
-        cout << "(";
-        for (int i = 0; i < this->length; ++i) {
-            cout << " " << this->arr[i] << ", ";
-        }
-        cout << ")\n";
-    }
-    // T1& operator ++() { // pre
-
-    // }
-    // T1& operator --() {
-
-    // }
-    // T1 operator ++(T1) { // post
-
-    // }
-    // T1 operator --(T1) {
-
-    // }
-    friend ostream& operator<<(ostream& os, const T1& out) {
+    friend ostream& operator<<(ostream& os, const Vector<T1>& out) {
         if (out.arr != NULL) {
-            os << "(\n";
-            for (int i = 0; i < out.length; ++i) {
-                os << out[i] << endl;
-            }
-            os << "\n)";
+            os << "(";
+            for (int i = 0; i < out.length; ++i)
+                os << out[i] << ", ";
+            os << ")\n";
         }
         return os;
     }
@@ -114,10 +117,13 @@ public:
 
 int main() {
     Vector<int> a;
-    cout << a;
     a[0] = 2;
     a[1] = 1;
-    cout << a << endl;
-    // a.show();
+    ++a;
+    a++;
+    cout << "" << a;
+    --a;
+    a--;
+    cout << "" << a;
     return 0;
 }
