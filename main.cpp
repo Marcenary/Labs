@@ -8,7 +8,8 @@ class Vector {
     int length;
 public:
     Vector() {
-        arr = NULL;
+        length = 2;
+        arr = new T1[2]{0, 0};
     }
 
     Vector(int len) {
@@ -21,10 +22,20 @@ public:
     }
     
     Vector(T1 **arr) { // конвертировать двумерную матрицу в вектор
-        return;
+        
     }
 
-    T1 operator[] (const int id) { return arr[id]; }
+    T1& operator[] (const int id) const {
+        return this->arr[id];
+    }
+
+    void show() {
+        cout << "(";
+        for (int i = 0; i < this->length; ++i) {
+            cout << " " << this->arr[i] << ", ";
+        }
+        cout << ")\n";
+    }
     // T1& operator ++() { // pre
 
     // }
@@ -37,10 +48,15 @@ public:
     // T1 operator --(T1) {
 
     // }
-    friend ostream& operator<<(ostream& os, const T1 out) {
-        os << "[\n";
-        os << out << endl; // ?
-        os << "\n]";
+    friend ostream& operator<<(ostream& os, const T1& out) {
+        if (out.arr != NULL) {
+            os << "(\n";
+            for (int i = 0; i < out.length; ++i) {
+                os << out[i] << endl;
+            }
+            os << "\n)";
+        }
+        return os;
     }
 
     ~Vector() {
@@ -49,54 +65,59 @@ public:
     }
 };
 
-template<class T2>
-class Matrix {
-    T2 **arr;
-public:
-    Vector() arr(NULL) {  }
+// template<class T2>
+// class Matrix {
+//     T2 **arr;
+// public:
+//     Vector() arr(NULL) {  }
     
-    Vector(int m, int n) {
-        arr = new T2*[m];
-        for (int i=0; i<n; ++i)
-            arr[i] = new T2[n] { };
-    }
+//     Vector(int m, int n) {
+//         arr = new T2*[m];
+//         for (int i=0; i<n; ++i)
+//             arr[i] = new T2[n] { };
+//     }
     
-    Vector(T2 **arr) {
-        this->arr = arr;
-    }
+//     Vector(T2 **arr) {
+//         this->arr = arr;
+//     }
     
-    Vector(Vector arr) {
-        arr = NULL;
-    }
-    /*=====================*/
-    T2 at(int i, int j) const {
+//     Vector(Vector arr) {
+//         arr = NULL;
+//     }
+//     /*=====================*/
+//     T2 at(int i, int j) const {
 
-    }
+//     }
 
-    void setAt(int i, int j, T2 val) {
+//     void setAt(int i, int j, T2 val) {
 
-    }
-    /*=====================*/
-    // T2& operator ++() { // pre
+//     }
+//     /*=====================*/
+//     // T2& operator ++() { // pre
 
-    // }
-    // T2& operator --() {
+//     // }
+//     // T2& operator --() {
 
-    // }
-    // T2 operator ++(T2) { // post
+//     // }
+//     // T2 operator ++(T2) { // post
 
-    // }
-    // T2 operator --(T2) {
+//     // }
+//     // T2 operator --(T2) {
 
-    // }
-    friend ostream& operator<<(ostream& os, const T2 out) {
-        os << "[\n";
-        os << out << endl; // ?
-        os << "\n]";
-    }
-};
+//     // }
+//     friend ostream& operator<<(ostream& os, const T2 out) {
+//         os << "[\n";
+//         os << out << endl; // ?
+//         os << "\n]";
+//     }
+// };
 
 int main() {
-
+    Vector<int> a;
+    cout << a;
+    a[0] = 2;
+    a[1] = 1;
+    cout << a << endl;
+    // a.show();
     return 0;
 }
