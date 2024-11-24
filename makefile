@@ -8,6 +8,10 @@ build: main.o
 	$(CC) main.o -o $(FILENAME).out
 
 # add run with run *.out and clean *.o *.out
+run:
+	$(CC) main.o -o $(FILENAME).out
+	./$(FILENAME).out
+	rm -rf *.o $(FILENAME).out
 
 main.o: main.cpp
 

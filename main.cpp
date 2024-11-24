@@ -14,13 +14,12 @@ public:
 
     Vector(int len) {
         length = len;
-        arr = new T1[len];
+        arr = new T1[len]{0};
     }
 
-    Vector(T1 *arr) {
-        this->arr = arr;
-    }
+    Vector(T1 *arr) { this->arr = arr; }
     
+    // Matrix<T1> arr
     Vector(T1 **arr) { // конвертировать двумерную матрицу в вектор
         // int n=5, m=5;
         // T1 *narray = new T1[n * m];
@@ -33,6 +32,9 @@ public:
         // }
         // return narray;
     }
+
+    // getter
+    int Length() { return length; }
 
     T1& operator[] (const int id) const { return this->arr[id]; }
     void operator ++() { // pre ++a
@@ -64,66 +66,92 @@ public:
 
     ~Vector() {
         if (arr != NULL)
-            delete arr;
+            delete [] arr; // maybe error, test -> delete arr;
     }
 };
 
-// template<class T2>
-// class Matrix {
-//     T2 **arr;
-// public:
-//     Vector() arr(NULL) {  }
+template<class T2>
+class Matrix {
+    T2 **arr;
+    int rows, cols;
+public:
+    Matrix() {
+        cout << "Data created" << endl;
+        rows = 2; cols = 2;
+        arr = new T2*[rows];
+        for (int i = 0; i < rows; ++i)
+            arr[i] = new T2[cols]{ 0, 1 };
+    }
     
-//     Vector(int m, int n) {
-//         arr = new T2*[m];
-//         for (int i=0; i<n; ++i)
-//             arr[i] = new T2[n] { };
-//     }
+    // Matrix(int m, int n) {
+    //     rows = m; cols = n;
+    //     arr = new T2*[rows];
+    //     for (int i = 0; i < rows; ++i)
+    //         arr[i] = new T2[cols] { 0, 1 };
+    // }
     
-//     Vector(T2 **arr) {
-//         this->arr = arr;
-//     }
+    // Matrix(T2 **arr) { this->arr = arr; }
     
-//     Vector(Vector arr) {
-//         arr = NULL;
-//     }
-//     /*=====================*/
-//     T2 at(int i, int j) const {
+    Matrix(Vector<T2>& arr): arr(NULL) {
+        int test_size = arr.Length() / 5; // 5 3
+        if (test_size == 3) {
+            this->arr = NULL;
+            cout << "Valid data!" << endl;
+        }
+    }
+    //=====================//
+    // T2 at(int i, int j) const {
 
-//     }
+    // }
 
-//     void setAt(int i, int j, T2 val) {
+    // void setAt(int i, int j, T2 val) {
 
-//     }
-//     /*=====================*/
-//     // T2& operator ++() { // pre
+    // }
+    //=====================//
+    // T2& operator ++() { // pre
 
-//     // }
-//     // T2& operator --() {
+    // }
+    // T2& operator --() {
 
-//     // }
-//     // T2 operator ++(T2) { // post
+    // }
+    // T2 operator ++(T2) { // post
 
-//     // }
-//     // T2 operator --(T2) {
+    // }
+    // T2 operator --(T2) {
 
-//     // }
-//     friend ostream& operator<<(ostream& os, const T2 out) {
-//         os << "[\n";
-//         os << out << endl; // ?
-//         os << "\n]";
-//     }
-// };
+    // }
+    // friend ostream& operator<<(ostream& os, const Matrix<T2>& out) {
+    //     os << "[\n";
+    //     os << out << endl; // ?
+    //     os << "\n]";
+    //     return os;
+    // }
+
+    ~Matrix() {
+        if (arr != NULL) {
+            cout << "Data deleted!" << endl;
+            for (int i = 0; i < rows; ++i)
+                if (arr[i] != NULL)
+                    delete [] arr[i];
+            delete [] arr;
+        }
+    }
+};
 
 int main() {
-    Vector<int> a;
-    a[0] = 2;
-    a[1] = 1;
-    ++a;
-    a++;
-    cout << "" << a;
-    --a;
-    a--;
-    cout << "" << a;
+    // int** array = new int*[3];
+    // for (int i = 0; i < 3; ++i) {
+    //     array[i] = new int[3];
+    //     for (int j = 0; j < 3; ++j)
+    //         array[i][j] = j+1;
+
+    // for (int i = 0; i < 3; ++i)
+    //     delete [] array[i];
+    // delete [] array;
+
+    Vector<int> a{15};
+    Matrix<int> b{a};
+    // cout << a;
+    
     return 0;
 }
