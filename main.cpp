@@ -8,13 +8,13 @@ class Vector {
     int length;
 public:
     Vector() {
-        length = 2;
-        arr = new T1[2]{0, 0};
+        this->length = 2;
+        this->arr = new T1[2]{0, 0};
     }
 
     Vector(int len) {
-        length = len;
-        arr = new T1[len]{0};
+        this->length = len;
+        this->arr = new T1[len]{0};
     }
 
     Vector(T1 *arr) { this->arr = arr; }
@@ -34,7 +34,7 @@ public:
     }
 
     // getter
-    int Length() { return length; }
+    int Length() { return this->length; }
 
     T1& operator[] (const int id) const { return this->arr[id]; }
     void operator ++() { // pre ++a
@@ -65,8 +65,8 @@ public:
     }
 
     ~Vector() {
-        if (arr != NULL)
-            delete [] arr; // maybe error, test -> delete arr;
+        if (this->arr != NULL)
+            delete [] this->arr; // maybe error, test -> delete arr;
     }
 };
 
@@ -78,24 +78,27 @@ public:
     Matrix() {
         cout << "Data created" << endl;
         rows = 2; cols = 2;
-        arr = new T2*[rows];
+        this->arr = new T2*[rows];
         for (int i = 0; i < rows; ++i)
-            arr[i] = new T2[cols]{ 0, 1 };
+            this->arr[i] = new T2[cols]{ 0, 1 };
     }
     
-    // Matrix(int m, int n) {
-    //     rows = m; cols = n;
-    //     arr = new T2*[rows];
-    //     for (int i = 0; i < rows; ++i)
-    //         arr[i] = new T2[cols] { 0, 1 };
-    // }
+    Matrix(int m, int n) {
+        rows = m; cols = n;
+        this->arr = new T2*[rows];
+        for (int i = 0; i < rows; ++i)
+            this->arr[i] = new T2[cols] { 0, 1 };
+    }
     
-    // Matrix(T2 **arr) { this->arr = arr; }
+    Matrix(T2 **arr) { this->arr = arr; }
     
     Matrix(Vector<T2>& arr): arr(NULL) {
         int test_size = arr.Length() / 5; // 5 3
         if (test_size == 3) {
-            this->arr = NULL;
+            this->arr = new int*[5]{0};
+            for (int i = 0; i < 5; ++i) {
+                this->arr[i] = new int[3]{0};
+            }
             cout << "Valid data!" << endl;
         }
     }
@@ -120,20 +123,23 @@ public:
     // T2 operator --(T2) {
 
     // }
-    // friend ostream& operator<<(ostream& os, const Matrix<T2>& out) {
-    //     os << "[\n";
-    //     os << out << endl; // ?
-    //     os << "\n]";
-    //     return os;
-    // }
+
+    friend ostream& operator<<(ostream& os, const Matrix<T2>& out) {
+        os << "[";
+        for (int i = 0; i < out.rows; ++i)
+            for (int j = 0; j < out.cols; ++j)
+                os << out.arr[i][j] << ", ";
+        os << "]\n";
+        return os;
+    }
 
     ~Matrix() {
         if (arr != NULL) {
             cout << "Data deleted!" << endl;
             for (int i = 0; i < rows; ++i)
-                if (arr[i] != NULL)
-                    delete [] arr[i];
-            delete [] arr;
+                if (this->arr[i] != NULL)
+                    delete [] this->arr[i];
+            delete [] this->arr;
         }
     }
 };
@@ -151,7 +157,7 @@ int main() {
 
     Vector<int> a{15};
     Matrix<int> b{a};
-    // cout << a;
+    cout << b;
     
     return 0;
 }

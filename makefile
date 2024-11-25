@@ -8,6 +8,7 @@ build: main.o
 	$(CC) main.o -o $(FILENAME).out
 
 # add run with run *.out and clean *.o *.out
+# git branch --set-upstream-to=origin/master main
 run:
 	$(CC) main.o -o $(FILENAME).out
 	./$(FILENAME).out
