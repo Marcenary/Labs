@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
 
@@ -17,7 +18,13 @@ public:
         this->arr = new T1[len]{0};
     }
 
-    Vector(T1 *arr) { this->arr = arr; }
+    Vector(T1* arr) {
+        int i;
+        for (i = 0; 1; ++i)
+            if (arr[i] == NULL) break;
+        this->length = ++i;
+        this->arr = arr;
+    }
     
     // Matrix<T1> arr
     Vector(T1 **arr) { // конвертировать двумерную матрицу в вектор
@@ -95,41 +102,70 @@ public:
     Matrix(Vector<T2>& arr): arr(NULL) {
         int test_size = arr.Length() / 5; // 5 3
         if (test_size == 3) {
-            this->arr = new int*[5]{0};
-            for (int i = 0; i < 5; ++i) {
+            this->rows = 5;
+            this->cols = 3;
+            this->arr = new int*[5];
+
+            for (int i = 0; i < this->rows; ++i) {
+                cout << test_size << endl;
                 this->arr[i] = new int[3]{0};
+                for (int j = 0; i < this->cols; ++i)
+                    this->arr[i][j] = arr[i * cols + j];
             }
             cout << "Valid data!" << endl;
         }
     }
     //=====================//
-    // T2 at(int i, int j) const {
+    T2& at(int i, int j) const {
+        if (i >= 0 && j >= 0)
+            return this->arr[i][j];
+        else throw std::invalid_argument( "received negative value" );
+    }
 
-    // }
+    void setAt(int i, int j, T2 val) {
+        if (i >= 0 && j >= 0)
+            this->arr[i][j] = val;
+    }
 
-    // void setAt(int i, int j, T2 val) {
+    int getRows() const { return this->rows; }
 
-    // }
+    int getCols() const { return this->cols; }
+
     //=====================//
-    // T2& operator ++() { // pre
-
-    // }
-    // T2& operator --() {
-
-    // }
-    // T2 operator ++(T2) { // post
-
-    // }
-    // T2 operator --(T2) {
-
-    // }
+    void operator ++() { // pre
+        for (int i = 0; i < this->rows; ++i) {
+            for (int j = 0; j < this->cols; ++j)
+                ++this->arr[i][j];
+        }
+    }
+    void operator --() {
+        for (int i = 0; i < this->rows; ++i) {
+            for (int j = 0; j < this->cols; ++j)
+                --this->arr[i][j];
+        }
+    }
+    void operator ++(T2 obj) { // post
+        for (int i = 0; i < this->rows; ++i) {
+            for (int j = 0; j < this->cols; ++j)
+                ++this->arr[i][j];
+        }
+    }
+    void operator --(T2 obj) {
+        for (int i = 0; i < this->rows; ++i) {
+            for (int j = 0; j < this->cols; ++j)
+                --this->arr[i][j];
+        }
+    }
 
     friend ostream& operator<<(ostream& os, const Matrix<T2>& out) {
         os << "[";
-        for (int i = 0; i < out.rows; ++i)
-            for (int j = 0; j < out.cols; ++j)
-                os << out.arr[i][j] << ", ";
-        os << "]\n";
+        for (int i = 0; i < out.getRows(); ++i) {
+            os << endl;
+            os << "\t";
+            for (int j = 0; j < out.getCols(); ++j)
+                os << out.at(i, j) << ", ";
+        }
+        os << "\n]\n";
         return os;
     }
 
@@ -155,9 +191,10 @@ int main() {
     //     delete [] array[i];
     // delete [] array;
 
-    Vector<int> a{15};
+    int* c {new int[15]{1,2,3,4,5,6,7,8,9,11,12,13,14,15}};
+    Vector<int> a{c};
     Matrix<int> b{a};
-    cout << b;
+    // cout << b;
     
     return 0;
 }
