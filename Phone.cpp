@@ -7,16 +7,16 @@ using namespace std;
 class Telephone {
     string model;
     string phoneNumber;
-    string lastDialedNumber;
+    string lastCalledNumber;
     double balance;
 
 public:
     // Конструктор без параметров
-    Telephone() : model("Unknown"), phoneNumber("0000000000"), lastDialedNumber(""), balance(0.0) {}
+    Telephone() : model("Unknown"), phoneNumber("0000000000"), lastCalledNumber(""), balance(0.0) {}
 
     // Конструктор с параметрами
     Telephone(const string& model, const string& phoneNumber, double balance)
-        : model(model), phoneNumber(phoneNumber), lastDialedNumber(""), balance(balance) {}
+        : model(model), phoneNumber(phoneNumber), lastCalledNumber(""), balance(balance) {}
 
     // Сеттеры
     void setModel(const string& model) { this->model = model; }
@@ -26,12 +26,12 @@ public:
     // Геттеры
     string getModel() const { return model; }
     string getPhoneNumber() const { return phoneNumber; }
-    string getLastDialedNumber() const { return lastDialedNumber; }
+    string getlastCalledNumber() const { return lastCalledNumber; }
     double getBalance() const { return balance; }
 
     // Метод для звонка
     void call(const string& number, int minutes) {
-        lastDialedNumber = number;
+        lastCalledNumber = number;
         balance -= minutes * 0.5;
     }
 
@@ -41,12 +41,11 @@ public:
         if (outFile.is_open()) {
             outFile << model << "\n";
             outFile << phoneNumber << "\n";
-            outFile << lastDialedNumber << "\n";
+            outFile << lastCalledNumber << "\n";
             outFile << balance << "\n";
             outFile.close();
-        } else {
+        } else
             cerr << "Unable to open file for writing: " << filename << endl;
-        }
     }
 
     // Метод для десериализации данных из файла
@@ -55,20 +54,19 @@ public:
         if (inFile.is_open()) {
             getline(inFile, model);
             getline(inFile, phoneNumber);
-            getline(inFile, lastDialedNumber);
+            getline(inFile, lastCalledNumber);
             inFile >> balance;
             inFile.close();
-        } else {
+        } else
             cerr << "Unable to open file for reading: " << filename << endl;
-        }
     }
 
     // Метод для вывода информации о телефоне
     void printInfo() const {
-        cout << "Model: " << model << endl;
-        cout << "Phone Number: " << phoneNumber << endl;
-        cout << "Last Dialed Number: " << lastDialedNumber << endl;
-        cout << "Balance: " << balance << " rubles" << endl;
+        cout << "Модель: " << model << endl;
+        cout << "Номер телефона: " << phoneNumber << endl;
+        cout << "Последний набранный номер: " << lastCalledNumber << endl;
+        cout << "Баланс: " << balance << " рублей" << endl;
     }
 };
 
@@ -95,9 +93,9 @@ int main() {
     phone2->call("3333333333", 1);
 
     // Вывод информации о телефонах после звонков
-    cout << "Phone 1 Info:" << endl;
+    cout << "Телефон 1 - Информация:" << endl;
     phone1->printInfo();
-    cout << "Phone 2 Info:" << endl;
+    cout << "Телефон 2 - Информация:" << endl;
     phone2->printInfo();
 
     // Сериализация данных в файл
@@ -107,7 +105,7 @@ int main() {
     // Десериализация данных из файла
     Telephone phone3;
     phone3.deserialize("phone1.dat");
-    cout << "Deserialized Phone 1 Info:" << endl;
+    cout << "Прочитанные данные об телефоне 1:" << endl;
     phone3.printInfo();
 
     // Освобождение памяти

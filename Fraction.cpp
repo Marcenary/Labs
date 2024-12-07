@@ -4,45 +4,45 @@
 #include <algorithm>
 
 class Fraction {
-    int numerator;
-    int denominator;
+    int num;
+    int den;
     static int instanceCount;
 public:
-    Fraction(int numerator = 0, int denominator = 1): numerator(numerator), denominator(denominator) {
+    Fraction(int num = 0, int den = 1): num(num), den(den) {
         reduce();
         ++instanceCount;
     }
 
     // Перегрузка операторов
     Fraction operator+(const Fraction& other) const {
-        int newNumerator = numerator * other.denominator + other.numerator * denominator;
-        int newDenominator = denominator * other.denominator;
-        return Fraction(newNumerator, newDenominator);
+        int newNum = num * other.den + other.num * den;
+        int newDen = den * other.den;
+        return Fraction(newNum, newDen);
     }
 
     Fraction operator-(const Fraction& other) const {
-        int newNumerator = numerator * other.denominator - other.numerator * denominator;
-        int newDenominator = denominator * other.denominator;
-        return Fraction(newNumerator, newDenominator);
+        int newNum = num * other.den - other.num * den;
+        int newDen = den * other.den;
+        return Fraction(newNum, newDen);
     }
 
     Fraction operator*(const Fraction& other) const {
-        int newNumerator = numerator * other.numerator;
-        int newDenominator = denominator * other.denominator;
-        return Fraction(newNumerator, newDenominator);
+        int newNum = num * other.num;
+        int newDen = den * other.den;
+        return Fraction(newNum, newDen);
     }
 
     Fraction operator/(const Fraction& other) const {
-        int newNumerator = numerator * other.denominator;
-        int newDenominator = denominator * other.numerator;
-        return Fraction(newNumerator, newDenominator);
+        int newNum = num * other.den;
+        int newDen = den * other.num;
+        return Fraction(newNum, newDen);
     }
 
     // Метод для сокращения дроби
     void reduce() {
-        int gcdValue = gcd(numerator, denominator);
-        numerator /= gcdValue;
-        denominator /= gcdValue;
+        int gcdValue = gcd(num, den);
+        num /= gcdValue;
+        den /= gcdValue;
     }
 
     // Статические методы
@@ -57,12 +57,12 @@ public:
 
     static void printAsFraction(double decimal_fraction) {
         int precision = 1000000; // Точность до 6 знаков после запятой
-        int numerator = static_cast<int>(decimal_fraction * precision);
-        int denominator = precision;
-        int gcdValue = gcd(numerator, denominator);
-        numerator /= gcdValue;
-        denominator /= gcdValue;
-        std::cout << numerator << "/" << denominator << std::endl;
+        int num = static_cast<int>(decimal_fraction * precision);
+        int den = precision;
+        int gcdValue = gcd(num, den);
+        num /= gcdValue;
+        den /= gcdValue;
+        std::cout << num << "/" << den << std::endl;
     }
 
     static void printAsFraction(char* decimal_fraction) {
@@ -74,7 +74,7 @@ public:
     static int getInstanceCount() { return instanceCount; }
 
     // Метод для вывода дроби
-    void print() const { std::cout << numerator << "/" << denominator << std::endl; }
+    void print() const { std::cout << num << "/" << den << std::endl; }
 };
 
 // Инициализация статического члена

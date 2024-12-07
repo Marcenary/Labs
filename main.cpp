@@ -99,7 +99,7 @@ public:
     
     Matrix(T2 **arr) { this->arr = arr; }
     
-    Matrix(Vector<T2>& arr): arr(NULL) {
+    Matrix(Vector<T2>& arr): arr(nullptr) {
         int test_size = arr.Length() / 5; // 5 3
         if (test_size == 3) {
             this->rows = 5;
@@ -107,12 +107,11 @@ public:
             this->arr = new int*[5];
 
             for (int i = 0; i < this->rows; ++i) {
-                cout << test_size << endl;
-                this->arr[i] = new int[3]{0};
-                for (int j = 0; i < this->cols; ++i)
+                this->arr[i] = new int[3];
+                for (int j = 0; j < this->cols; ++j) {
                     this->arr[i][j] = arr[i * cols + j];
+                }
             }
-            cout << "Valid data!" << endl;
         }
     }
     //=====================//
@@ -171,7 +170,6 @@ public:
 
     ~Matrix() {
         if (arr != NULL) {
-            cout << "Data deleted!" << endl;
             for (int i = 0; i < rows; ++i)
                 if (this->arr[i] != NULL)
                     delete [] this->arr[i];
@@ -191,10 +189,14 @@ int main() {
     //     delete [] array[i];
     // delete [] array;
 
-    int* c {new int[15]{1,2,3,4,5,6,7,8,9,11,12,13,14,15}};
+    int* c {new int[15]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15}};
     Vector<int> a{c};
     Matrix<int> b{a};
-    // cout << b;
+    ++b;
+    b++;
+    b--;
+    --b;
+    cout << b;
     
     return 0;
 }

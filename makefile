@@ -19,6 +19,11 @@ fract:
 	./$(FILENAME).out
 	rm -rf *.o $(FILENAME)
 
+phone:
+	$(CC) Phone.cpp -o $(FILENAME).out
+	./$(FILENAME).out
+	rm -rf *.o $(FILENAME)
+
 main.o: main.cpp
 
 clean:
