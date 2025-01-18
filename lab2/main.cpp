@@ -193,10 +193,13 @@ int main() {
     Vector<int> a{c};
     Matrix<int> b{a};
     ++b;
+    cout << b << endl;
     b++;
+    cout << b << endl;
     b--;
+    cout << b << endl;
     --b;
-    cout << b;
+    cout << b << endl;
     
     return 0;
 }
