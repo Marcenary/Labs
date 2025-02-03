@@ -27,7 +27,7 @@ public:
 	ExpressionEvaluator() : operandsCount(20) {
 		operand_arr = new double[operandsCount] {0};
 	}
-	ExpressionEvaluator(int сount) : operandsCount(сount) {
+	ExpressionEvaluator(int count) : operandsCount(count) {
 		operand_arr = new double[operandsCount] {0};
 	}
 	virtual ~ExpressionEvaluator() = default;
@@ -222,8 +222,7 @@ public:
 	}
 };
 
-int main()
-{
+int main() {
 	Subtractor w(10);
 	Multiplier s(10);
 	CustomExpression d(10);
