@@ -1,0 +1,22 @@
+
+short temperature = 30; // Объявление переменной типа short
+/* Объявление переменной типа byte */
+byte count = 120;
+
+int score = 95;
+float speed = 60.5; // Неверный тип
+/* Объявление переменной типа short */ short level = 5;
+byte attempts = 3;
+int distance = 1500; // Объявление переменной типа int
+
+/* Неверный тип */ string name = "Alice";
+boolean isActive = true;
+byte steps = 250; // Объявление переменной типа byte
+
+int height = 180;
+
+double price = 19.99; // Неверный тип
+* Объявление переменной типа int */int age = 25;
+short rating = 4;
+
+char grade = 'A'; // Неверный тип
