@@ -34,3 +34,6 @@
 # Files
 *.pyc
 .vscode
+
+music/
+test3/
